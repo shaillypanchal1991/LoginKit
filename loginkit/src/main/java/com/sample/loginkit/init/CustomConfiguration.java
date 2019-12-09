@@ -5,14 +5,14 @@ import com.sample.loginkit.utils.StringConstants;
 
 public class CustomConfiguration {
 
-    // public NetworkEnvironment networkEnviroment;
+   //Configuration parameters for the client app to change
     public String domainURL = "";
     public int retryCount = 3;
     public boolean isLoggingEnable = true;
     public UIComponents uiComponents = new UIComponents();
     public HTTPErrorMapping httpErrorMapping = new HTTPErrorMapping();
 
-
+    //UI Configuration parameters for the client app to change
     public class UIComponents {
 
         public double buttonCornerRadius = 0.0;
@@ -28,6 +28,8 @@ public class CustomConfiguration {
 
 
     }
+
+    //HTTP Error Message configuration parameters for the client app to change
 
     public class HTTPErrorMapping {
 

@@ -9,6 +9,8 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/* Profileinteractor creates an API request for fetching profiles of the logged in user */
+
 public class ProfileInteractor extends GenericRequestHandler<List<Profile>> {
 
 

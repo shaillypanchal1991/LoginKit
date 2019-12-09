@@ -2,6 +2,9 @@ package com.sample.loginkit.analytics;
 
 import java.util.HashMap;
 
+
+/* Common Analytics  manager to push analytics events */
+
 public class AnalyticsServiceManager {
     private static final AnalyticsServiceManager ourInstance = new AnalyticsServiceManager();
     AnalyticsEventInterface analyticsEventListener;
@@ -10,14 +13,17 @@ public class AnalyticsServiceManager {
         return ourInstance;
     }
 
-    public void setAnalyticsEventListener(AnalyticsServiceManager.AnalyticsEventInterface listener) {
+    public void setAnalyticsEventListener(AnalyticsServiceManager.AnalyticsEventInterface listener)
+    {
 
         this.analyticsEventListener = listener;
     }
 
 
-    private AnalyticsServiceManager() {
+    private AnalyticsServiceManager()
+    {
     }
+
 
     public void pushAnalyticsEvent(String eventName, HashMap<String, String> eventProperties) {
         if (analyticsEventListener != null) {

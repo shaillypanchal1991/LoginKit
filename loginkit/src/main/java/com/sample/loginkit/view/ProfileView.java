@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.sample.loginkit.R;
 import com.sample.loginkit.databinding.ActivityProfileViewBinding;
+import com.sample.loginkit.init.RootLoginController;
 import com.sample.loginkit.models.Login;
 import com.sample.loginkit.models.Profile;
 import com.sample.loginkit.network.adapters.ProfileRecyclerViewAdapter;
@@ -42,17 +43,17 @@ public class ProfileView extends AppCompatActivity implements ProfileRecyclerVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_view);
+        // setContentView(R.layout.activity_profile_view);
         profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         profileLoginViewModel = ViewModelProviders.of(this).get(ProfileLoginViewModel.class);
 
         binding = DataBindingUtil.setContentView(ProfileView.this, R.layout.activity_profile_view);
         binding.setLifecycleOwner(this);
         binding.setProfileViewModel(profileViewModel);
-
+        profileViewModel.getProfilesOfUser();
 
         binding.recyclerView.setLayoutManager(new AutoFitGridLayoutManager(this, 200));
-        profileViewModel.getProfilesOfUser();
+
         binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         binding.recyclerView.addItemDecoration(new GridItemSpacingDecorator(2, dpToPx(10), true));
@@ -65,6 +66,7 @@ public class ProfileView extends AppCompatActivity implements ProfileRecyclerVie
             public void onSuccess(List<Profile> dataWrapper) {
                 List<Profile> profiles = dataWrapper;
                 LogUtils.debug(TAG, "profiles " + dataWrapper.size());
+                RootLoginController.getEventListener().fetchProfilesSuccessfulWith(dataWrapper);
                 populateData(profiles);
 
 
@@ -75,6 +77,7 @@ public class ProfileView extends AppCompatActivity implements ProfileRecyclerVie
                 Snackbar snackbar = Snackbar
                         .make(binding.rootLayout, exception.getErrorMessage(exception.getErrorCode()), Snackbar.LENGTH_LONG);
                 snackbar.show();
+                RootLoginController.getEventListener().fetchProfilesFailedWithError(exception);
                 LogUtils.debug(TAG, "profiles " + exception.getMessage());
             }
         }));
@@ -84,6 +87,7 @@ public class ProfileView extends AppCompatActivity implements ProfileRecyclerVie
             @Override
             public void onSuccess(Login dataWrapper) {
 
+                RootLoginController.getEventListener().loginWithProfileIdSuccessfulWith(dataWrapper);
 
                 finish();
 
@@ -91,10 +95,11 @@ public class ProfileView extends AppCompatActivity implements ProfileRecyclerVie
 
             @Override
             public void onException(CustomException exception) {
+
                 Snackbar snackbar = Snackbar
                         .make(binding.rootLayout, exception.getErrorMessage(exception.getErrorCode()), Snackbar.LENGTH_LONG);
                 snackbar.show();
-
+                RootLoginController.getEventListener().loginWithProfileIdFailedWith(exception);
 
                 //  Log.e(TAG, "" + exception.getMessage().toString());
             }
@@ -122,6 +127,7 @@ public class ProfileView extends AppCompatActivity implements ProfileRecyclerVie
     @Override
     public void onProfileClicked(final Profile profile) {
         if (isNetworkConnected()) {
+
             if (profile.getHasPin()) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);

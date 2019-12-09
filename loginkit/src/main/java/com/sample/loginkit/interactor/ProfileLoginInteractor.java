@@ -10,6 +10,9 @@ import com.sample.loginkit.utils.StringConstants;
 
 import retrofit2.Call;
 
+/* ProfileinProfileLoginInteractor creates API request for signing in with the profile selected */
+
+
 public class ProfileLoginInteractor extends GenericRequestHandler<Login> {
 
     private APIRequestInterface apiRequestInterface;

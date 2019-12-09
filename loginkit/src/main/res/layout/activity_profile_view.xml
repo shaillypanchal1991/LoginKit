@@ -14,9 +14,9 @@
             name="model"
             type="com.sample.loginkit.models.Profile" />
 
-<variable
-    name="profileLoginViewModel"
-    type="com.sample.loginkit.viewmodel.ProfileLoginViewModel" />
+        <variable
+            name="profileLoginViewModel"
+            type="com.sample.loginkit.viewmodel.ProfileLoginViewModel" />
 
         <variable
             name="ProfileViewModel"
@@ -30,7 +30,9 @@
         android:layout_height="match_parent"
         app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
         app:layout_constraintRight_toLeftOf="@id/guidelineRight"
-        app:layout_constraintTop_toBottomOf="@+id/guidelineTop1">
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop1"
+        android:background="@android:color/white"
+        >
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -38,14 +40,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
+            app:layout_constraintGuide_percent="0.1" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
+            app:layout_constraintGuide_percent="0.9" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineTop"
@@ -63,10 +65,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:adapter="@{profileViewAdapter}"
-
+            android:foregroundGravity="center"
+            app:layout_constraintWidth_percent="0.8"
             app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
             app:layout_constraintRight_toLeftOf="@id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/guidelineTop1"

@@ -10,7 +10,7 @@ import com.sample.loginkit.utils.StringConstants;
 
 
 import retrofit2.Call;
-
+/* RefreshTokenInteractor creates API request for refreshing the token when profiles fetching fails and the token has expired */
 public class RefreshTokenInteractor extends GenericRefreshTokenHandler<Login> {
 
     private APIRequestInterface refreshTokenService = DataRepository.getInstance().getApiRequest();

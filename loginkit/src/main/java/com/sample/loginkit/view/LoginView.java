@@ -73,7 +73,8 @@ public class LoginView extends AppCompatActivity implements View.OnClickListener
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 if (!isValidEmail(s.toString())) {
                     binding.txtinputEmail.setError("Enter a valid address");
                     binding.btnSignIn.setEnabled(false);
@@ -144,6 +145,9 @@ public class LoginView extends AppCompatActivity implements View.OnClickListener
                 eventParams.put("responseObject",dataWrapper.toString());
                 AnalyticsServiceManager.getInstance().pushAnalyticsEvent("login_success",eventParams);
 
+                RootLoginController.getEventListener().loginSuccessfulWith(dataWrapper);
+
+
 
                 Intent intent = new Intent(LoginView.this, ProfileView.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -165,6 +169,8 @@ public class LoginView extends AppCompatActivity implements View.OnClickListener
                 Snackbar snackbar = Snackbar
                         .make(binding.rootLayout, exception.getErrorMessage(exception.getErrorCode()), Snackbar.LENGTH_LONG);
                 snackbar.show();
+
+                RootLoginController.getEventListener().loginFailedWith(exception);
 
 
             }
@@ -227,6 +233,9 @@ public class LoginView extends AppCompatActivity implements View.OnClickListener
             if (binding.txtinputEmail.getError() == null && binding.txtinputPassword.getError() == null) {
 
                 loginViewModel.loginWithCredentials(binding.editTextEmail.getText().toString(), binding.editTextPassword.getText().toString(), binding.checkBoxRememberMe.isChecked());
+
+             byte[] base64EncodedUsername = Base64.encode(binding.editTextEmail.getText().toString().getBytes(), Base64.DEFAULT);
+
 
                 HashMap<String,String> eventParams = new HashMap<String,String>();
                 eventParams.put("username", binding.editTextEmail.getText().toString());

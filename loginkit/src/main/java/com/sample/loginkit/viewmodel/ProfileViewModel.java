@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.sample.loginkit.analytics.AnalyticsServiceManager;
+import com.sample.loginkit.init.RootLoginController;
 import com.sample.loginkit.interactor.ProfileInteractor;
 import com.sample.loginkit.interactor.RefreshTokenInteractor;
 import com.sample.loginkit.models.Login;
@@ -14,6 +15,7 @@ import com.sample.loginkit.network.generic.GenericRequestHandler;
 
 import java.util.HashMap;
 
+/*View model for Profiles View which gives back list of profiles to the activity */
 public class ProfileViewModel extends ViewModel implements GenericRequestHandler.IResponseStatus, GenericRefreshTokenHandler.ITokenResponseStatus {
     public MutableLiveData livedata;
 
@@ -22,7 +24,7 @@ public class ProfileViewModel extends ViewModel implements GenericRequestHandler
         if (DataRepository.getInstance().fetchUserSessionDetails() != null) {
             String token = DataRepository.getInstance().getInstance().fetchUserSessionDetails().getAccessToken();
 
-            ProfileInteractor.createInstance("bearer " + token).onProfilesRequest(ProfileViewModel.this,DataRepository.getInstance().getApiRequest());
+            ProfileInteractor.createInstance("bearer " + token).onProfilesRequest(ProfileViewModel.this, DataRepository.getInstance().getApiRequest());
 
         }
 
@@ -70,20 +72,21 @@ public class ProfileViewModel extends ViewModel implements GenericRequestHandler
         if (liveData.getData() != null && liveData.getApiException() == null) {
 
 
-            HashMap<String,String> eventParams = new HashMap<String,String>();
+            HashMap<String, String> eventParams = new HashMap<String, String>();
             eventParams.put("username", DataRepository.getInstance().fetchUserName());
-            AnalyticsServiceManager.getInstance().pushAnalyticsEvent("refresh_session_success",eventParams);
+            AnalyticsServiceManager.getInstance().pushAnalyticsEvent("refresh_session_success", eventParams);
 
             DataRepository.getInstance().storeUserSessionDetails((Login) liveData.getData());
             getProfilesOfUser();
-        }
-        else{
-            HashMap<String,String> eventParams = new HashMap<String,String>();
+
+            RootLoginController.getEventListener().refreshTokenSuccessfulWith((Login) liveData.getData());
+        } else {
+            HashMap<String, String> eventParams = new HashMap<String, String>();
             eventParams.put("username", DataRepository.getInstance().fetchUserName());
             eventParams.put("error", liveData.getApiException().getErrorMessage(liveData.getApiException().getErrorCode()));
 
-            AnalyticsServiceManager.getInstance().pushAnalyticsEvent("refresh_session_failure",eventParams);
-
+            AnalyticsServiceManager.getInstance().pushAnalyticsEvent("refresh_session_failure", eventParams);
+            RootLoginController.getEventListener().refreshTokenFailedWith(liveData.getApiException());
         }
 
 

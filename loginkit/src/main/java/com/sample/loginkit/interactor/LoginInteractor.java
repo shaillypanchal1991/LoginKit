@@ -8,6 +8,12 @@ import com.sample.loginkit.utils.StringConstants;
 
 import retrofit2.Call;
 
+
+/*
+ *
+ * Interactor class for Login API.
+ * Creates API requests
+ * */
 public class LoginInteractor extends GenericRequestHandler<Login> {
     private APIRequestInterface apiRequestInterface;
 

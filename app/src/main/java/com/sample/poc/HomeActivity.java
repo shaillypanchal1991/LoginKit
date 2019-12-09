@@ -19,6 +19,11 @@ import com.google.android.material.navigation.NavigationView;
 
 import com.sample.loginkit.analytics.AnalyticsServiceManager;
 import com.sample.loginkit.init.RootLoginController;
+import com.sample.loginkit.listeners.LoginKitEventListener;
+import com.sample.loginkit.models.Login;
+import com.sample.loginkit.models.Profile;
+import com.sample.loginkit.network.error.CustomException;
+import com.sample.loginkit.network.error.ValidationAPIException;
 import com.sample.loginkit.utils.LogUtils;
 import com.sample.poc.databinding.ActivityHomeBinding;
 import com.sample.poc.fragments.AccountFragment;
@@ -28,8 +33,9 @@ import com.sample.poc.fragments.SettingsFragment;
 import com.sample.poc.helper.BottomNavigationBehavior;
 
 import java.util.HashMap;
+import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AnalyticsServiceManager.AnalyticsEventInterface {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AnalyticsServiceManager.AnalyticsEventInterface, LoginKitEventListener.EventListenerExtended {
 
     ActivityHomeBinding binding;
     private String TAG = HomeActivity.class.getName();
@@ -55,13 +61,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private void initializeLibrary() {
 
-        RootLoginController rootLoginController = RootLoginController.initWithContext();
-        rootLoginController.customConfiguration.isLoggingEnable = false;
+        RootLoginController rootLoginController = RootLoginController.init();
+        rootLoginController.customConfiguration.isLoggingEnable = true;
         rootLoginController.customConfiguration.retryCount = 2;
         rootLoginController.customConfiguration.uiComponents.backgroundColor = "#ffffff";
         rootLoginController.customConfiguration.domainURL="https://usermgt-staging.shared-svc.bellmedia.ca";
+
         rootLoginController.loadLoginKit(this, rootLoginController);
+
         AnalyticsServiceManager.getInstance().setAnalyticsEventListener(this);
+        RootLoginController.setEventListener(this);
 
 
     }
@@ -121,5 +130,73 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void pushEvent(String name, HashMap<String, String> eventProperties) {
         LogUtils.debug(TAG, "Analytics Event : " + name + " Params :" + eventProperties.toString());
+    }
+
+    @Override
+    public void loginSuccessfulWith(Login loginResponse) {
+
+        Log.e("Callback response","Login response"+loginResponse.getAccessToken());
+
+    }
+
+    @Override
+    public void loginFailedWith(CustomException e) {
+
+        Log.e("Callback response","Custom exception"+e.getErrorMessage(e.getErrorCode()));
+
+    }
+
+    @Override
+    public void fetchProfilesSuccessfulWith(List<Profile> profileList) {
+
+        Log.e("Callback response","Profile List fetched successdully response");
+
+    }
+
+    @Override
+    public void fetchProfilesFailedWithError(CustomException e) {
+
+        Log.e("Callback response","Profile List fetching error" );
+    }
+
+    @Override
+    public void loginWithProfileIdSuccessfulWith(Login loginResponse) {
+
+        Log.e("Callback response","Login with profile ID successful"+loginResponse.getAccessToken());
+
+    }
+
+    @Override
+    public void loginWithProfileIdFailedWith(CustomException e) {
+
+        Log.e("Callback response","Login with profile ID Failed");
+    }
+
+    @Override
+    public void refreshTokenSuccessfulWith(Login loginResponse) {
+
+
+        Log.e("Callback response","Token refreshed successfully ");
+
+    }
+
+    @Override
+    public void refreshTokenFailedWith(CustomException e) {
+
+
+        Log.e("Callback response","Token refresh failed ");
+
+    }
+
+
+    @Override
+    public void logoutSuccessful() {
+
+    }
+
+
+    @Override
+    public void optionalMethod() {
+
     }
 }

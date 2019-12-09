@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.sample.poc.R;
+import com.sample.poc.adapters.HorizontalAdapter;
+import com.sample.poc.adapters.MainVerticalAdapter;
 import com.sample.poc.models.Sport;
 
 import java.util.ArrayList;
@@ -28,8 +30,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
     private ArrayList<Sport> _sportsList = new ArrayList<>();
-    private RecyclerView _horizontalRecyclerView, _carouselRecyclerview;
-
+    private RecyclerView _horizontalRecyclerView, _mainRecyclerview;
+    private float dpHeight,dpWidth;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -41,9 +43,21 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
+
+    /*Adding dummy values for horizontal list in homepage */
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        /*Getting width and height of the device */
+        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+        dpHeight = displayMetrics.heightPixels / displayMetrics.density;
+        dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+
+
+        /*Adding dummy data */
 
         _sportsList.add(new Sport("NBA", R.drawable.nba));
         _sportsList.add(new Sport("Tennis", R.drawable.tennis));
@@ -61,96 +75,63 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.homeview_fragment, container, false);
 
         _horizontalRecyclerView = view.findViewById(R.id.horizontalRecyclerView);
+        _mainRecyclerview = view.findViewById(R.id.mainRecyclerView);
 
-        HorizontalAdapter horizontalAdapter = new HorizontalAdapter(getActivity(), _sportsList);
-        // _horizontalRecyclerView.setAdapter(new HorizontalAdapter(getActivity(), _sportsList));
+        /*for horizontal
+        recycler view */
+
+        HorizontalAdapter horizontalAdapter = new HorizontalAdapter(getActivity(), _sportsList,getWidthByPercent(45));
         _horizontalRecyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 
         llm.setAutoMeasureEnabled(false);
         _horizontalRecyclerView.setLayoutManager(llm);
 
-        _horizontalRecyclerView.getLayoutParams().height = (int) getHeightonepercent();
+        _horizontalRecyclerView.getLayoutParams().height = (int) setRecyclerviewHeightByPercent(45);
 
 
-        // _horizontalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        // HorizontalAdapter horizontalAdapter = new HorizontalAdapter(getActivity());
         _horizontalRecyclerView.setAdapter(horizontalAdapter);
+
+
+        /* for vertical recyclerview */
+        MainVerticalAdapter mainVerticalAdapter = new MainVerticalAdapter( getHeightForRecyclerView(70));
+        _mainRecyclerview.setHasFixedSize(true);
+        LinearLayoutManager llm1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        llm.setAutoMeasureEnabled(false);
+        _mainRecyclerview.setLayoutManager(llm1);
+
+
+
+        _mainRecyclerview.setAdapter(mainVerticalAdapter);
         return view;
 
 
     }
 
-    public float getwidthonepercent() {
-        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        float onepercent = (dpWidth * 45) / 100;
+    public float getWidthByPercent(int percent) {
+
+        float onepercent = (dpWidth * percent) / 100;
         return onepercent;
     }
 
-    public float getHeightonepercent() {
-        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        float onepercent = (dpHeight * 45) / 100;
+    public float setRecyclerviewHeightByPercent(int percent) {
+
+        float onepercent = (dpHeight * percent) / 100;
         return onepercent;
     }
 
-    class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.MyViewHolder> {
-        private Context context;
 
+    public float getHeightForRecyclerView(int percent) {
 
-        public class MyViewHolder extends RecyclerView.ViewHolder {
-            public TextView name;
-            public ImageView thumbnail;
-            public LinearLayout llmain;
-
-            public MyViewHolder(View view) {
-                super(view);
-                name = view.findViewById(R.id.txtName);
-                thumbnail = view.findViewById(R.id.imgItem);
-                llmain = view.findViewById(R.id.llmain);
-            }
-        }
-
-
-        public HorizontalAdapter(Context context, ArrayList<Sport> sportsList) {
-            this.context = context;
-
-
-        }
-
-        @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.horizontal_item, parent, false);
-
-            return new MyViewHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(MyViewHolder holder, final int position) {
-            final Sport sport = _sportsList.get(position);
-
-
-            //  holder.llmain.getLayoutParams().height = (int)getHeightonepercent();
-
-            holder.llmain.getLayoutParams().width = (int) getwidthonepercent();
-
-            Glide.with(context)
-                    .load(sport.getImgURL())
-
-                    .into(holder.thumbnail);
-            // holder.name.setText(sport.getSportName().toString());
-        }
-
-        @Override
-        public int getItemCount() {
-            return _sportsList.size();
-        }
+        float onepercent = (dpHeight * 70) / 100;
+        return onepercent;
     }
+
+
 
 
 }
+
+
 

@@ -15,9 +15,9 @@ import com.sample.loginkit.databinding.ProfileRowBinding;
 import com.sample.loginkit.models.Profile;
 import com.sample.loginkit.utils.LogUtils;
 
+
 import java.util.List;
 
-import static com.sample.loginkit.BR.model;
 
 
 public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements CustomClickListener {
@@ -64,11 +64,18 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
             ((ProfileViewHolder) holder).bind(dataModel);
             ((ProfileViewHolder) holder).profileRowBinding.setItemClickListener(this);
 
+            ((ProfileViewHolder) holder).profileRowBinding.tvNickName.setTag(dataModel.getNickname());
+            ((ProfileViewHolder) holder).profileRowBinding.imgAvtar.setTag(dataModel.getAvatarUrl());
+
+
         } else if (holder instanceof FooterViewHolder) {
             Profile dataModel = new Profile();
             dataModel.setAvatarUrl("@drawable/ic_addprofile");
             dataModel.setNickname("Add profile");
             ((FooterViewHolder) holder).bind(dataModel);
+
+            ((FooterViewHolder) holder).footerRowBinding.tvNickName.setTag(dataModel.getNickname());
+            ((FooterViewHolder) holder).footerRowBinding.imgAvtar.setTag(dataModel.getAvatarUrl());
 
         }
     }
@@ -108,8 +115,12 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         }
 
         public void bind(Object obj) {
-            profileRowBinding.setVariable(model, obj);
+            profileRowBinding.setVariable(com.sample.loginkit.BR.model, obj);
+
             profileRowBinding.executePendingBindings();
+
+
+
         }
     }
 
@@ -123,7 +134,7 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         }
 
         public void bind(Object obj) {
-            footerRowBinding.setVariable(model, obj);
+            footerRowBinding.setVariable(com.sample.loginkit.BR.model, obj);
             footerRowBinding.executePendingBindings();
         }
     }

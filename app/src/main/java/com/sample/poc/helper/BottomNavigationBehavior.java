@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
- * Created by ravi on 21/12/17.
+ *
  */
 
 public class BottomNavigationBehavior extends CoordinatorLayout.Behavior<BottomNavigationView> {

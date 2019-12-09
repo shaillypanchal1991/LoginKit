@@ -20,6 +20,9 @@ import java.util.List;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
+
+/* Class defining major data storage functions like maintaining user session,credentials etc in the Encrypted Shared Preferences */
+
 public class DataRepository {
     private String TAG = DataRepository.class.getName();
 

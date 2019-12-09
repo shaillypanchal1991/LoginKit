@@ -15,7 +15,7 @@ import com.sample.loginkit.utils.LogUtils;
 import com.sample.loginkit.utils.StringConstants;
 
 import java.util.HashMap;
-
+/*View model for Profiles View which enables to login with profile if and also handles token when expired. */
 
 public class ProfileLoginViewModel extends ViewModel implements GenericRequestHandler.IResponseStatus {
     private static final String TAG = ProfileLoginViewModel.class.getName();

@@ -15,7 +15,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface APIRequestInterface {
-
+    /* API skeleton that can be fully configured from the client end. */
 
     @FormUrlEncoded
     @POST("api/login/v1.1")

@@ -1,343 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#F1F1F1">
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <ImageView
+        android:id="@+id/imgTsnLogo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineLeft10"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
+        app:layout_constraintWidth_percent="0.2"
+        app:srcCompat="@drawable/tsnlogo" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+
+
+    <TextView
+        android:id="@+id/txtDiscover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Discover"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/black"
+        app:layout_constraintLeft_toRightOf="@id/guidelineLeft"
+        android:layout_margin="3dp"
+        app:layout_constraintTop_toBottomOf="@+id/imgTsnLogo" />
+
+    <TextView
+        android:id="@+id/txtDiscoverSubText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:text="Get the latest news on your favourite sport"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorDarkGrey"
+        app:layout_constraintLeft_toRightOf="@id/guidelineLeft"
+
+        app:layout_constraintTop_toBottomOf="@+id/txtDiscover" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/horizontalRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:background="@android:color/white">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineLeft20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.2" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineLeft70"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.7" />
-
-        <ImageView
-            android:id="@+id/imglogo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/sd"
-            android:src="@drawable/tsnlogo"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
-
-            app:layout_constraintWidth_percent="0.3">
-
-        </ImageView>
-
-
-        <TextView
-            android:id="@id/txtDiscover"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Discover"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorDarkGrey"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/imglogo"></TextView>
-
-        <TextView
-            android:id="@+id/subtext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Get the latest news on your favourite sport"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/colorDarkGrey"
-            android:typeface="serif"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/txtDiscover"></TextView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/horizontalRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-
-            app:layout_constraintBottom_toTopOf="@+id/nhl"
-            app:layout_constraintHeight_percent="1"
-
-            app:layout_constraintTop_toBottomOf="@+id/subtext"
-            app:layout_constraintWidth_percent="1">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <TextView
-            android:id="@+id/nhl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NHL"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorDarkGrey"
-            app:layout_constraintLeft_toRightOf="@id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalRecyclerView"></TextView>
-
-
-        <ImageView
-            android:id="@+id/imgnhl"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:background="@drawable/roundedrect"
-            android:scaleType="centerCrop"
-            android:src="@drawable/banner"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/nhl"
-            app:layout_constraintWidth_percent="0.8" />
-
-        <TextView
-            android:id="@+id/txtHeadline"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:minLines="2"
-            android:text="Marchand scores twice in third as Leafs suffer fourth straight defeat"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorDarkGrey"
-
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/imgnhl"
-            app:layout_constraintWidth_percent="0.8"></TextView>
-
-        <TextView
-            android:id="@+id/txtMatches"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Matches"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorDarkGrey"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/txtHeadline"></TextView>
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:elevation="5dp"
-            android:layout_margin="10dp"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/txtMatches">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/chicago" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="V/S"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/colorDarkGrey"></TextView>
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/bucks" />
-
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </androidx.cardview.widget.CardView>
-
-
-        <TextView
-            android:id="@+id/txtarndnhl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Around the NHL"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/cardView">
-
-        </TextView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewNews"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:elevation="5dp"
-            android:layout_marginTop="5dp"
-            app:cardBackgroundColor="@android:color/white"
-
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/txtarndnhl">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="0.3"
-                    android:layout_margin="2dp"
-                    android:src="@drawable/banner"></ImageView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:lines="3"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:text="Button: The Leafs 'are \n sloppy defensive \n team\n 2 hours ago"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-                    android:textColor="@color/colorDarkGrey"></TextView>
-            </LinearLayout>
-
-
-
-
-
-        </androidx.cardview.widget.CardView>
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewNews1"
-            android:layout_width="0dp"
-            android:layout_marginTop="5dp"
-            android:layout_height="wrap_content"
-            android:elevation="5dp"
-            app:cardBackgroundColor="@android:color/white"
-
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/cardViewNews">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="0.3"
-                    android:layout_margin="2dp"
-                    android:src="@drawable/banner"></ImageView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:lines="3"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:text="Button: The Leafs 'are \n sloppy defensive \n team\n 2 hours ago"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-                    android:textColor="@color/colorDarkGrey"></TextView>
-            </LinearLayout>
-
-
-
-
-
-        </androidx.cardview.widget.CardView>
-
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewNews2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:elevation="5dp"
-            app:cardBackgroundColor="@android:color/white"
-
-            android:layout_marginTop="5dp"
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/cardViewNews1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="0.3"
-                    android:layout_margin="2dp"
-                    android:src="@drawable/banner"></ImageView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:lines="3"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:text="Button: The Leafs 'are \n sloppy defensive \n team\n 2 hours ago"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-                    android:textColor="@color/colorDarkGrey"></TextView>
-            </LinearLayout>
-
-
-
-
-
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/txtDiscoverSubText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalRecyclerView"
+
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
